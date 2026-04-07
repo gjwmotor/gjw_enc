@@ -1,4 +1,4 @@
-#include "TmgEnc.h"
+#include "gjw_enc.h"
 
 TmgEncClass tmgEnc;
 
@@ -9,22 +9,22 @@ void setup() {
   Serial1.begin(2500000);//多摩川波特率2.5M
   tmgEnc.pSerial = &Serial1;
   delay(1000);
-  //ABM清零指令，连续发送10次
-  if(tmgEnc.tmgRequest_62()){
-     Serial.print(tmgEnc.ABS);
-  }
+  tmgEnc.tmgWriteConf(67, 0x0);
+  tmgEnc.tmgWriteConf(68, 0x0);
 }
 
 void loop() {
   //put your main code here, to run repeatedly: 
-  if(tmgEnc.tmgRequest_1A()){
-     //输出解码结果
-     Serial.print(tmgEnc.ABS);
-     Serial.print(',');
-     Serial.print(tmgEnc.ABM);
-     Serial.print(',');
-     Serial.println(tmgEnc.ALMC);
+  uint8_t setTmp = tmgEnc.tmgReadEprom(67);
+  if(!tmgEnc.getLastError()){
+    Serial.print("Tmp:");
+    Serial.println(setTmp);
   }
-  //延时100ms
+  uint8_t setBaudr = tmgEnc.tmgReadEprom(68);
+  if(!tmgEnc.getLastError()){
+    Serial.print("Baud:");
+    Serial.println(setBaudr);
+  }
   delay(100);
 }
+

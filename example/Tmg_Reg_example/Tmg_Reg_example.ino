@@ -1,4 +1,4 @@
-#include "TmgEnc.h"
+#include "gjw_enc.h"
 
 TmgEncClass tmgEnc;
 
