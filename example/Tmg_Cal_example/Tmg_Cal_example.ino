@@ -5,13 +5,13 @@ TmgEncClass tmgEnc;
 void setup() {
   //put your setup code here, to run once:
   Serial.begin(115200);//波特率115200，用于结果输出
-  //Serial1.begin(2500000, SERIAL_8N1, 18, 17);//esp32-s3
-  Serial1.begin(2500000);//多摩川波特率2.5M
+  Serial1.begin(2500000, SERIAL_8N1, 5, 4);//esp32-s3
+  //Serial1.begin(2500000);//多摩川波特率2.5M
   tmgEnc.pSerial = &Serial1;
   delay(1000);
   //ABS清零指令，连续发送10次
   if(tmgEnc.tmgRequest_C2()){
-     Serial.print(tmgEnc.ABS);
+     Serial.println(tmgEnc.ABS);
   }
 }
 
