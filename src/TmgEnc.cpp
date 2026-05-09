@@ -202,7 +202,7 @@ boolean TmgEncClass::tmgDecode_Ack(uint8_t cf, uint8_t *ackBuf, uint8_t ackLen, 
   uint32_t t_beg = micros();
   uint8_t tmgn = 0;
   while(1){
-    //超时处理，超出100us没有接收完整数据，接收超时退出解码
+    //超时处理，超出ackTus没有接收完整数据，接收超时退出解码
     uint32_t t_usr = micros() - t_beg;
     if(t_usr>ackT){
 	  err = 1;
